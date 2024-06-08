@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Redirige cualquier solicitud a /user/ seguido de un nombre de usuario a user.php
+RewriteRule ^user/([^/]+)$ user.php?username=$1 [L,QSA]
+
+# Redirige cualquier solicitud a /user a user.php (sin parámetro de nombre de usuario)
+RewriteRule ^user$ user.php [L]

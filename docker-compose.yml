@@ -1,7 +1,10 @@
 version: '3'
 services:
   db:
-    image: mysql:${MYSQL_VERSION}
+    build:
+      context: ./docker/mysql
+      args:
+        mysql_version: ${MYSQL_VERSION}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -24,7 +27,10 @@ services:
       - "8080:80"
 
   webserver:
-    image: php:${PHP_VERSION}
+    build:
+      context: ./docker/php
+      args:
+        php_version: ${PHP_VERSION}
     volumes:
       - ./www:/var/www/html
     ports:
