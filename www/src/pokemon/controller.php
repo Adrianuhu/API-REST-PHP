@@ -2,13 +2,13 @@
 
 require_once './src/pokemon/model.php';
 
-class bas_categoriaController
+class pokemonController
 {
     private $model;
 
     public function __construct()
     {
-        $this->model = new BasCategoria();
+        $this->model = new Pokemon();
     }
 
     public function readAll()

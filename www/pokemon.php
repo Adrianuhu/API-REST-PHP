@@ -28,12 +28,12 @@ if (isset($_GET['pokemonId'])) {
             
             /// Solicita el controlador correspondiente y el metodo
             require_once BASE_PATH . '/src/pokemon/controller.php';
-            $controller = new bas_categoriaController();
+            $controller = new pokemonController();
             $response = $controller->readOne($id);
 
             /// Responde con un codigo 200 en caso de que la peticion sea correcta
             
-            // setHttpResponseCode($response['status']);
+            setHttpResponseCode($response['status']);
             break;
 
         }
@@ -46,7 +46,7 @@ if (isset($_GET['pokemonId'])) {
             case 'categoria': {
                 /// Solicita el controlador correspondiente y el metodo
                 require_once 'controllers/bas_categoria_controller.php';
-                $controller = new bas_categoriaController();
+                $controller = new pokemonController();
                 $response = $controller->create($data);
                 /// Responde con un codigo 200 en caso de que la peticion sea correcta
                 // http_response_code(200);
@@ -64,7 +64,7 @@ if (isset($_GET['pokemonId'])) {
             case "categoria/$id": {
                 /// Solicita el controlador correspondiente y el metodo
                 require_once 'controllers/bas_categoria_controller.php';
-                $controller = new bas_categoriaController();
+                $controller = new pokemonController();
                 $response = $controller->delete($id);
                 /// Responde con un codigo 200 en caso de que la peticion sea correcta
                 // http_response_code(200);
@@ -81,11 +81,17 @@ if (isset($_GET['pokemonId'])) {
             break;
         }
     }
-    http_response_code(400);
-    echo json_encode($response);
 } else {
-echo("-------\n");
-echo("TODOS LOS POKEMONSTERS\n");
-echo("-------\n");
+     /// Solicita el controlador correspondiente y el metodo
+     require_once BASE_PATH . '/src/pokemon/controller.php';
+     $controller = new pokemonController();
+     $response = $controller->readAll();
+
+     /// Responde con un codigo 200 en caso de que la peticion sea correcta
+     
+     setHttpResponseCode($response['status']);
 }
+
+echo json_encode($response);
+
 ?>

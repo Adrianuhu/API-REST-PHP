@@ -2,7 +2,7 @@
 
 require_once './src/database/database.php';
 
-class BasCategoria
+class Pokemon
 {
     private $conn;
     public $respueta = array(
