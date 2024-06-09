@@ -7,9 +7,6 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header('Content-Type: application/json');
 header('Access-Control-Allow-Credentials: true');
-?>
-
-<?php
 
 /** Verifica si existe una pokemonId via petición GET */
 if (isset($_GET['pokemonId'])) {
