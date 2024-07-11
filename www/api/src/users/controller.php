@@ -1,19 +1,22 @@
 <?php
 
-require_once './src/pokemon/model.php';
+require_once './src/users/model.php';
 
-class pokemonController
+class usersController
 {
     private $model;
 
     public function __construct()
     {
-        $this->model = new Pokemon();
+        $this->model = new Users();
     }
 
-    public function readAll()
+    /*
+     *
+     */
+    public function checkPassword($data)
     {
-        return $this->model->read();
+        return $this->model->checkPassword($data);
     }
 
     public function readOne($id)

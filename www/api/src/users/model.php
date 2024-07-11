@@ -2,10 +2,10 @@
 
 require_once './src/database/database.php';
 
-class Pokemon
+class Users
 {
     private $conn;
-    public $respueta = array(
+    public $respuesta = array(
         "status" => '',
         "body" => '',
     );
@@ -33,14 +33,14 @@ class Pokemon
             $statement->bindParam(":estatus", $estatus, PDO::PARAM_STR);
             $statement->execute();
 
-            $this->respueta['status'] = 'ok';
-            $this->respueta['body'] = 'Categoria registrada';
+            $this->respuesta['status'] = 'ok';
+            $this->respuesta['body'] = 'Categoria registrada';
 
         } catch (PDOException $e) {
-            $this->respueta['status'] = 'err';
-            $this->respueta['body'] = 'error: ' . $e->getMessage();
+            $this->respuesta['status'] = 'err';
+            $this->respuesta['body'] = 'error: ' . $e->getMessage();
         }
-        return $this->respueta;
+        return $this->respuesta;
     }
 
     public function update()
@@ -55,66 +55,87 @@ class Pokemon
             $statement->bindParam(":id", $id, PDO::PARAM_STR);
             $statement->execute();
 
-            $this->respueta['status'] = 'ok';
-            $this->respueta['body'] = 'Categoria eliminada';
+            $this->respuesta['status'] = 'ok';
+            $this->respuesta['body'] = 'Categoria eliminada';
 
         } catch (PDOException $e) {
-            $this->respueta['status'] = 'err';
-            $this->respueta['body'] = 'error: ' . $e->getMessage();
+            $this->respuesta['status'] = 'err';
+            $this->respuesta['body'] = 'error: ' . $e->getMessage();
         }
-        return $this->respueta;
+        return $this->respuesta;
     }
 
-    public function read()
+    /*  
+     *          CHECK PASSWORD FUNCTION
+     *          -----------------------
+     *          Input $data (JSON) {'name': input1, 'password': input2}
+     *          Output respuesta(JSON) {'FOUND': output1}
+     */
+
+    public function checkPassword($data)
     {
         try {
+            $userName = $data['name'];
+            $passWord = $data['password'];               
+
             $query = 'SELECT
-                        ID_Pokemon, Pokemon
+                        COUNT(
+                            name) as FOUND
                     FROM
-                        Pokemon';
+                        DB.users
+                    WHERE
+                        name = :nm 
+                        AND
+                        password = :pw';
+                        // :pw;
+
             $statement = $this->conn->prepare($query);
+            $statement->bindParam(":nm", $userName, PDO::PARAM_STR);
+            $statement->bindParam(":pw", $passWord, PDO::PARAM_STR);
             $statement->execute();
 
-            $this->respueta['status'] = 'ok';
-            if ($statement->rowCount() > 0) {
-                $this->respueta['body'] = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $this->respuesta['status'] = 'ok';
+            
+            //
+             if ($statement->rowCount() > 0) {
+                $this->respuesta['body'] = $statement->fetchAll(PDO::FETCH_ASSOC);
             } else {
-                $this->respueta['body'] = 'la tabla esta vacia';
-            }
+                $this->respuesta['body'] = 'la tabla esta vacia';
+            } 
 
         } catch (PDOException $e) {
-            $this->respueta['status'] = 'err';
-            $this->respueta['body'] = 'error: ' . $e->getMessage();
+            $this->respuesta['status'] = 'err';
+            $this->respuesta['body'] = 'error: ' . $e->getMessage();
         }
-        return $this->respueta;
+        return $this->respuesta;
     }
 
     public function readOne($id)
     {
         try {
             $query = 'SELECT
-                        ID_Pokemon, Pokemon
+                        username
                     FROM
-                        Pokemon
+                        DB.users
                     WHERE
-                        ID_Pokemon = :id';
+                        userId = :id';
             $statement = $this->conn->prepare($query);
             $statement->bindParam(":id", $id, PDO::PARAM_STR);
             $statement->execute();
 
             if ($statement->rowCount() > 0) {
-                $this->respueta['status'] = 'ok';
-                $this->respueta['body'] = $statement->fetch(PDO::FETCH_ASSOC);
+                $this->respuesta['status'] = 'ok';
+                $this->respuesta['body'] = $statement->fetch(PDO::FETCH_ASSOC);
                 } else {
-                $this->respueta['status'] = 'error';
-                $this->respueta['body'] = 'No existe registro.';
+                $this->respuesta['status'] = 'error';
+                $this->respuesta['body'] = 'No existe registro.';
             }
 
         } catch (PDOException $e) {
-            $this->respueta['status'] = 'err';
-            $this->respueta['body'] = 'error: ' . $e->getMessage();
+            $this->respuesta['status'] = 'err';
+            $this->respuesta['body'] = 'error: ' . $e->getMessage();
         }
-        return $this->respueta;
+        return $this->respuesta;
     }
 
     public function getparamstoUpdate($input)
