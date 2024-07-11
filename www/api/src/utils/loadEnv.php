@@ -25,5 +25,5 @@ function loadEnv($path)
 }
 
 // Ruta a tu archivo .env
-$envPath = BASE_PATH . '/.env';
+$envPath = BASE_PATH . '/api/.env';
 loadEnv($envPath);

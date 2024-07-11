@@ -3,5 +3,7 @@ RewriteEngine On
 # Redirige cualquier solicitud a /pokemon/ seguido de un nombre de usuario a pokemon.php
 RewriteRule ^pokemon/([^/]+)$ pokemon.php?pokemonId=$1 [L,QSA]
 
+RewriteRule ^pokemon/([^/]+)/([^/]+)$ pokemon.php?pokemonId=$1&entrenadorId=$2 [L,QSA]
+
 # Redirige cualquier solicitud a /pokemon a pokemon.php (sin parámetro de nombre de usuario)
 RewriteRule ^pokemon$ pokemon.php [L]

@@ -26,7 +26,7 @@ services:
     volumes:
       - ./phpmyadmin-data:/sessions
     ports:
-      - "8080:80"
+      - "8081:80"
     networks:
       - my-network
 

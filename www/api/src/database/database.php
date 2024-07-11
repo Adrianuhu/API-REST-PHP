@@ -1,6 +1,6 @@
 <?php
 
-require_once BASE_PATH . '/src/utils/loadEnv.php';
+require_once BASE_PATH . '/api/src/utils/loadEnv.php';
 
 
 class Database {

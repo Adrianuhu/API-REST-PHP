@@ -14,7 +14,6 @@ if (isset($_GET['pokemonId'])) {
     $pokemonId = $_GET['pokemonId'];
     $response = '';
 
-
     /** Se lee el metodo solicitado [GET, POST, PUT, DELETE] */
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET': {
@@ -27,7 +26,7 @@ if (isset($_GET['pokemonId'])) {
             // CREAR PARA QUE TE DEN TODO
             
             /// Solicita el controlador correspondiente y el metodo
-            require_once BASE_PATH . '/src/pokemon/controller.php';
+            require_once BASE_PATH . '/api/src/pokemon/controller.php';
             $controller = new pokemonController();
             $response = $controller->readOne($id);
 
@@ -83,7 +82,7 @@ if (isset($_GET['pokemonId'])) {
     }
 } else {
      /// Solicita el controlador correspondiente y el metodo
-     require_once BASE_PATH . '/src/pokemon/controller.php';
+     require_once BASE_PATH . '/api/src/pokemon/controller.php';
      $controller = new pokemonController();
      $response = $controller->readAll();
 
