@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">
                 <form action="pokemon.php" method="GET" class="search-form">
-                    <input type="number" name="id" placeholder="ID..." value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>" required min="1">
+                    <input name="id" placeholder="ID..." value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" required min="1">
                     <button type="submit">Buscar</button>
                 </form>
             </div>
@@ -23,6 +23,7 @@
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
                 $sql = "SELECT * FROM Pokemon WHERE ID_Pokemon = '$id'";
+                echo $sql;
                 $resultado = mysqli_query($conexion, $sql);
                 $pokemon = mysqli_fetch_assoc($resultado);
 
