@@ -24,7 +24,7 @@ services:
       - "8080:80"
 
   webserver:
-    image: php:${PHP_VERSION}
+    build: .
     volumes:
       - ./www:/var/www/html
     ports:
