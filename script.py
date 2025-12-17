@@ -42,8 +42,8 @@ def get_column_names(max_columns=10, max_len=20):
                 if is_true(condition):
                     name += c
                     break
-            else:
-                break
+                else:
+                    break
 
         if name:
             columns.append(name)

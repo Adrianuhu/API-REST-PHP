@@ -37,6 +37,8 @@
                         )
                         LIMIT 1
                         ";
+
+            // Debug query
             echo "<br>" . $sql . "</br>";
             $resultado = mysqli_query($conexion, $sql);
 
