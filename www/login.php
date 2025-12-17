@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="text" id="password" name="password" placeholder="Contraseña (o JSON)..." required>
+                <input type="text" id="password" name="password" placeholder="Contraseña..." required>
             </div>
 
             <button type="submit">Entrar</button>
