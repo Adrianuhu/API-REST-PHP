@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 
@@ -14,12 +13,12 @@
         <form action="login.php" method="GET">
             <div class="form-group">
                 <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" placeholder="Usuario..." required>
+                <input type="text" id="username" name="username" placeholder="Usuario" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="text" id="password" name="password" placeholder="Contraseña..." required>
+                <input type="text" id="password" name="password" placeholder="Contraseña" required>
             </div>
 
             <button type="submit">Entrar</button>
@@ -33,8 +32,8 @@
                 $username = $_GET['username'] ?? '';
                 $password = $_GET['password'] ?? '';
 
-                // INTENCIONAL: "Feature" para soportar JSON desde la app móvil (hace vulnerable el input si escribes JSON)
-                // Esto permite escribir {"$ne": null} en el campo de contraseña
+                // VULNERABILIDAD NOSQL INYECTION
+                // ESCRIBIENDO {"$ne": null} en el campo de contraseña se accede a cualquier usuario
                 $decoded = json_decode($password, true);
                 if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
                     $password = $decoded;
@@ -59,7 +58,6 @@
                     <div>
                         <H1>BIENVENIDO</H1>
                         <p><b>Usuario:</b> <?php echo $user->username; ?></p>
-                        <!-- Botón simple para limpiar/salir -->
                         <button onclick="window.location.href='login.php'">Salir</button>
                     </div>
                     <?php

@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News</title>
 
 </head>
@@ -27,6 +26,10 @@
             $id_safe = (int) $id_raw;
 
             // Consulta SQL vulnerable a inyección SQL (Blind SQL Injection)
+            // ESCRIBIENDO 3 AND 1=1 OK  2 AND 1=2 ERROR
+            // 3 AND SUBSTRING(database(),1,1)='d' OK porque nuestra DDBB se llama "DB"
+            // 3 AND SUBSTRING(database(),1,1)='a' ERROR porque nuestra DDBB se llama "DB"
+        
             $sql = "SELECT Id, Title, Body, Datetime
                         FROM News
                         WHERE Id = $id_safe
