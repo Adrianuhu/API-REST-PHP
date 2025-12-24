@@ -10,7 +10,7 @@
 <body>
 
     <form action="news.php" method="GET">
-        <input name="id" placeholder="ID..." value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" required min="1">
+        <input name="id" placeholder="ID..." value="<?php echo $_GET['id']?>" required min="1">
         <button type="submit">Buscar</button>
     </form>
 
@@ -20,7 +20,7 @@
 
 
     if (isset($_GET['id'])) {
-        $id_raw = $_GET['id'] ?? '0';
+        $id_raw = $_GET['id'];
         $id_safe = (int) $id_raw;
 
         // Consulta SQL vulnerable a inyección SQL (Blind SQL Injection)
