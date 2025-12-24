@@ -10,7 +10,7 @@
     <div class="login-container">
         <h1>LOGIN</h1>
 
-        <form action="login.php" method="GET">
+        <form action="login_SOLUCION.php" method="GET">
             <div class="form-group">
                 <label for="username">Usuario</label>
                 <input type="text" id="username" name="username" placeholder="Usuario" required>
@@ -67,7 +67,7 @@
                     <div>
                         <H1>BIENVENIDO</H1>
                         <p><b>Usuario:</b> <?php echo $user->username; ?></p>
-                        <button onclick="window.location.href='login.php'">Salir</button>
+                        <button onclick="window.location.href='login_SOLUCION.php'">Salir</button>
                     </div>
                     <?php
                 } else {
