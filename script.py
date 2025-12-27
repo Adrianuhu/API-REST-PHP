@@ -2,10 +2,6 @@ import requests
 import string
 
 def condiccion_logica(condition):
-    """
-    Lanza una petición con una condición booleana
-    y devuelve True / False según la respuesta
-    """
     r = requests.get("http://localhost/news.php", params={"id": condition})
 
     if "NOTICIAS" in r.text:
