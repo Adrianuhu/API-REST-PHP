@@ -10,7 +10,7 @@
 <body>
 
     <form action="news.php" method="GET">
-        <input name="id" placeholder="ID..." value="<?php echo $_GET['id']?>" required min="1">
+        <input name="id" placeholder="ID" value="<?php echo $_GET['id']?>">
         <button type="submit">Buscar</button>
     </form>
 
@@ -54,10 +54,10 @@
 
             <div>
                 <H1>NOTICIAS</H1>
-                <p><b>ID:</b> <?php echo $news['Id']; ?></p>
-                <p><b>Título:</b> <?php echo $news['Title']; ?></p>
-                <p><b>Body:</b> <?php echo $news['Body']; ?></p>
-                <p><b>Datetime:</b> <?php echo $news['Datetime']; ?></p>
+                <p>ID: <?php echo $news['Id']; ?></p>
+                <p>Título: <?php echo $news['Title']; ?></p>
+                <p>Body: <?php echo $news['Body']; ?></p>
+                <p>Datetime: <?php echo $news['Datetime']; ?></p>
             </div>
 
             <?php
