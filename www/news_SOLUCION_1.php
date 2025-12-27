@@ -16,8 +16,6 @@
 
     <?php
     $conexion = mysqli_connect("db", "user", "pass", "DB");
-    mysqli_report(MYSQLI_REPORT_OFF);
-
 
     if (isset($_GET['id'])) {
         $id_raw = $_GET['id'];
